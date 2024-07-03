@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+html,body,:root{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+.bg-image{
+    background-image: url('../public/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.vectors {
+    background-image: 
+                      url('../src/assets/vectors/Message2.jpg'), url('../src/assets/vectors/Message Sent 1.jpg');
+    background-repeat: no-repeat, no-repeat;
+    background-position: 80% 90%, 20% 90%; /* Adjusted positions to ensure visibility of both images */
+    background-size: 200px, 200px;
+}
+
+  /* Example styles for scrollbar customization */
+/* For Webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color:  #2F83E4; /* Customize the thumb color */
+    border-radius: 5px; /* Customize the thumb border-radius */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #001329; /* Customize the track color */
+  }
+
+ .menu{
+  display: none;
+ }
+ .show-menu:hover .menu{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+ }
+ .show-menu{
+  cursor: pointer;
+ }
+
+ .clear-chat:hover .delete{
+  background-color: red;
+ }
