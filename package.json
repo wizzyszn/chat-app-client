@@ -24,12 +24,16 @@
     "socket.io-client": "^4.7.5",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-  "start": "react-scripts start",
-  "build": "npm install",
-  "test": "react-scripts test",
-  "eject": "react-scripts eject"
-}
+  
+    "scripts": {
+      "preinstall": "npx npm@10.8.1 install -g npm && export npm_config_legacy_peer_deps=true",
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject"
+    }
+  
+  
 ,
   "eslintConfig": {
     "extends": [
