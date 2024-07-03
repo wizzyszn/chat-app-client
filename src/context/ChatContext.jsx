@@ -35,7 +35,7 @@ export const ChatContextProvider = ({ children }) => {
 
   const [toggleRecipientProfile, setToggleRecipientProfile] = useState(false)
   useEffect(() => {
-    const newSocket = io('http://localhost:4000')
+    const newSocket = io('https://chat-application-sockets.glitch.me')
     setSocket(newSocket)
     return () => {
       newSocket.disconnect()
