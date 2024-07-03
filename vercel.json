@@ -1,7 +1,8 @@
 {
     "build": {
-      "installCommand": "npm run preinstall && npm install",
-      "buildCommand": "npm run build"
+      "env": {
+        "NPM_CONFIG_LEGACY_PEER_DEPS": "true"
+      }
     }
   }
   
