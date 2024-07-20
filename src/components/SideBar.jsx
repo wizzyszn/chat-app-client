@@ -18,7 +18,7 @@ export default function SideBar () {
   return (
     <div className=' bg-componentColor col-span-1 row-span-full flex flex-col gap-9 text-normal font-semibold items-center'>
       <div>
-        <h1 className=' text-4xl p-3'> Logo</h1>
+        <h1 className=' text-4xl p-3'> Let's Chat</h1>
       </div>
       <div className=' w-full h-[50%] flex gap-3 flex-col'>
         <div className=' flex flex-col items-center  h-fit p-2 cursor-pointer '>
