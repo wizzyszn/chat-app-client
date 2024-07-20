@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import FreeSolo from './SearchBar'
 import { AuthContext } from '../context/AuthContext'
 import UserChat from './UserChat'
@@ -46,4 +46,4 @@ export default function SelectChat () {
       </div>
     </div>
   )
-}
+}       
