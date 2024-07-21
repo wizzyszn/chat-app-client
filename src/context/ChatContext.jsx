@@ -7,6 +7,7 @@ import {
 } from 'react'
 import { baseUrl, getRequest, postRequest } from '../utils/services'
 import { AuthContext } from './AuthContext'
+import { useMediaQuery } from '@mui/material';
 import io from 'socket.io-client'
 export const ChatContext = createContext()
 export const ChatContextProvider = ({ children }) => {
@@ -23,7 +24,11 @@ export const ChatContextProvider = ({ children }) => {
   const [onlineUsers, setOnlineUsers] = useState([])
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
-  const [notifications, setNotifications] = useState([])
+  const [notifications, setNotifications] = useState([]);
+  const [openChatModal, setOpenChatModal] = useState(false);
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const isMobile = useMediaQuery('(max-width:720px)');
+  
   const [clearedChats, setClearedChats] = useState(() => {
     const storedClearedChats = localStorage.getItem('clearedChats')
 
@@ -38,7 +43,7 @@ export const ChatContextProvider = ({ children }) => {
     const newSocket = io('https://chat-application-sockets.glitch.me')
     setSocket(newSocket)
     return () => {
-      newSocket.disconnect()
+      newSocket.disconnect();
     }
   }, [user])
   //fetch all users
@@ -110,14 +115,12 @@ export const ChatContextProvider = ({ children }) => {
       setMessages(prev => [...prev, res])
     })
     socket.on('getNotification', res => {
-      console.log('response in get notification event:', res)
-      const isChatOpen = currentChat?.members.some(mem => mem === res.senderId)
-      console.log('isChatOpen', isChatOpen)
+      const isChatOpen = currentChat?.members.some(mem => mem === res.senderId);
       if (isChatOpen) {
         setNotifications(prevNotification => {
           return [...prevNotification, { ...res, isRead: true }]
-        })
-      } else setNotifications(prevNotification => [...prevNotification, res])
+        });
+      } else setNotifications(prevNotification => [...prevNotification, res]);
     })
     return () => {
       socket.off('getMessage')
@@ -139,7 +142,6 @@ export const ChatContextProvider = ({ children }) => {
         setUserChats(response)
         setIsUserChatsLoading(false)
       } catch (err) {
-        console.log(err.message)
       }
     }
     if (user) {
@@ -304,7 +306,12 @@ export const ChatContextProvider = ({ children }) => {
         isTyping,
         setIsTyping,
         notifications,
-        markThisNotificationAsRead
+        markThisNotificationAsRead,
+        openChatModal,
+        setOpenChatModal,
+        isMobile,
+        openProfileModal,
+        setOpenProfileModal
       }}
     >
       {children}

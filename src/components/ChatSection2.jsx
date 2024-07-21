@@ -13,9 +13,10 @@ import { CgProfile } from "react-icons/cg";
 import ContextMenu from './ContextMenu';
 import { MdOutlineStar, MdOutlineContentCopy } from 'react-icons/md';
 import { RiDeleteBinLine } from "react-icons/ri";
+import { MdArrowBackIos } from "react-icons/md";
 
 
-export default function ChatSection () {
+export default function ChatSection2 () {
   const { user } = useContext(AuthContext);
   const [menuPosition, setMenuPosition] = useState(null); // State for menu position
   const [selectedMessage, setSelectedMessage] = useState(null); // State for selected message
@@ -23,7 +24,7 @@ export default function ChatSection () {
   const [highlightSelect, SetHighlightSelect] = useState([]); // State for highlighted message
 
   const { messages, isMessagesLoading, currentChat,setTextMessage,textMessage,sendTextMessage,clearChat,clearedChats,toggleRecipientProfile,
-    setToggleRecipientProfile,deleteMultipleMessages,setMessages, handleTyping,isTyping} = useContext(ChatContext);
+    setToggleRecipientProfile,deleteMultipleMessages,setMessages, handleTyping,isTyping,setOpenChatModal,setOpenProfileModal} = useContext(ChatContext);
     
   const { recipientUser } = useFetchRecipientUser(currentChat, user?._id);
   const contextMenuRef = useRef(null);
@@ -31,8 +32,6 @@ export default function ChatSection () {
  
   useEffect(() =>{
     const handleClickOutside = (e) =>{
-      console.log("event: ", e);
-      console.log("reference: ", contextMenuRef.current);
       if(contextMenuRef.current && !contextMenuRef.current.contains(e.target)){
         closeMenu();
       }
@@ -42,9 +41,11 @@ export default function ChatSection () {
     })
     return () =>{window.removeEventListener('mousedown', handleClickOutside)}
   },[])
-  useEffect(() =>{
-msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
-}, [messages])
+  useEffect(() => {
+    if (msgContainerRef.current) {
+      msgContainerRef.current.scrollTop = msgContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
   //functions
   const handlePress = (e) =>{
     if(e.key === "Enter"){
@@ -114,15 +115,14 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
     SetHighlightSelect(() =>(highlightSelect.length === messages.length ? [] : messages.map(msg => msg._id)))
   }
   //debud area
-  console.log("getTypingStatus", isTyping)
+
   if (currentChat === null) {
     return <div>Start a conversation </div>
   }
   //set state of cleared chat
   const isChatCleared = clearedChats[currentChat?._id];
-  console.log("message container :", msgContainerRef)
   return (
-    <div className=" bg-inherit col-span-4 row-start-2 row-end-10 flex flex-col max-sm:hidden">
+    <div className=" bg-inherit col-span-4 row-start-2 row-end-10 flex flex-col h-full ">
       <div className=" rounded-xl h-[15%] bg-componentColor flex items-center justify-between p-4 relative">
        {
         multipleSelect ? <div className=' flex justify-between border w-full p-4 items-center'>
@@ -152,7 +152,10 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
 
         </div> :(
           <>
-           <div className=" flex items-center gap-5 ">
+           <div className=" flex items-center gap-2">
+            <MdArrowBackIos size={20} onClick={()=>{
+              setOpenChatModal(false)
+            }} />
           <div className=" size-14 relative rounded-full border border-black">
             {recipientUser && (
               <img
@@ -165,7 +168,7 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
           {recipientUser && <h3>{recipientUser?.firstName}</h3>}
         </div>
         {
-          isTyping && <div className=' border text-center'>typing.....</div>
+          isTyping && <div className='text-center text-sm'>typing.....</div>
         }
         <div className=" show-menu relative">
           <SlOptionsVertical size={25} />
@@ -174,6 +177,7 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
               className=" flex flex-col justify-center items-center gap-1"
               onClick={() => {
                 setToggleRecipientProfile(!toggleRecipientProfile);
+                setOpenProfileModal(true)
               }}
             >
               <CgProfile size={25} />
@@ -195,8 +199,7 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
         )
        }
       </div>
-      <div className="mt-5 bg-componentColor p-4 h-full relative flex flex-col overflow-y-auto gap-8  "
-      ref={msgContainerRef}
+      <div className="mt-5 bg-componentColor p-2 h-full relative flex flex-col overflow-y-auto gap-8  "
        >
         {isMessagesLoading ? (
           <div className="w-full h-full flex justify-center items-center">
@@ -208,7 +211,7 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
               {" "}
               <img src={bgVector} alt="" />
             </div>
-            <h3 className=" text-xl">
+            <h3 className=" text-sm text-center">
               {" "}
               start a conversation with {recipientUser?.firstName}
             </h3>
@@ -218,7 +221,7 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
           messages.map((message, index) => {
             return (
               <div
-               
+              ref={msgContainerRef}
                 onDoubleClick={handleOnDbClick}
                 onContextMenu={(e) => handleRightClick(e, message)}
                 onClick={()=>{
@@ -231,8 +234,8 @@ msgContainerRef.current?.scrollIntoView({behavior : 'smooth'})
                 }}
                 className={`${
                   message.senderId === user?._id
-                    ? "justify-end  p-4 flex gap-3 w-full text-sm relative rounded-md"
-                    : "justify-start p-4 gap-3 flex w-full text-sm relative rounded-md"
+                    ? "justify-end  p-1 flex gap-2 w-full text-xs relative rounded-md"
+                    : "justify-start p-1 gap-2 flex w-full text-xs relative rounded-md"
                 } `}
               >
                 {multipleSelect && (

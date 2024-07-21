@@ -6,7 +6,7 @@ import { MdBlock } from "react-icons/md";
 import { MdReportProblem } from "react-icons/md";
 import MessageLoader from './svg/MessageLoader';
 
-export default function ChatProfile() {
+export default function ChatProfile2() {
   const { user } = useContext(AuthContext);
   const { currentChat, toggleRecipientProfile } = useContext(ChatContext);
   const { recipientUser, loading } = useFetchRecipientUser(currentChat, user?._id);
@@ -16,7 +16,7 @@ export default function ChatProfile() {
   }
 
   return (
-    <div className='w-full h-full bg-componentColor col-start-7 col-end-9 row-start-2 row-end-10 p-8 max-sm:hidden'>
+    <div className='w-full h-full bg-componentColor col-start-7 col-end-9 row-start-2 row-end-10 p-8'>
       {loading ? (<div className='h-full justify-center flex items-center'>
         <MessageLoader />
       </div>

@@ -31,11 +31,11 @@ export default function Register () {
   }
   return (
     <div className=' h-svh'>
-      <div className=' w-full h-full grid grid-cols-2'>
-        <div className=' bg-image'></div>
+      <div className=' w-full h-full grid grid-cols-2 max-sm:grid-cols-1'>
+        <div className=' bg-image max-sm:hidden'></div>
         <div className=' vectors'>
           <form
-            className='h-full p-[30%] pt-[4%] flex flex-col gap-4'
+            className='h-full p-[10%] flex flex-col gap-4'
             onSubmit={e => {
               handleSubmit(e)
             }}

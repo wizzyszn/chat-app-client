@@ -96,7 +96,8 @@ export const AuthContextProvider =({children}) =>{
         isLogoutLoading,
         logoutError,
         logoutMessage,
-        setIsLogoutLoading
+        setIsLogoutLoading,
+        setUser
     }}>
         {children}
     </AuthContext.Provider>

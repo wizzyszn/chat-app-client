@@ -51,8 +51,8 @@ export default function ConfirmReset() {
             message && (<div className=' p-3 text-green-400 text-center'>{message}</div>)
 }
      
-      <div className=' flex flex-col gap-4 shadow-md border w-[30%] h-[50%] p-6 shad relative'>
-        <h1 className=' text-3xl font-semibold'>Set new password</h1>
+      <div className=' flex flex-col gap-4 shadow-md border w-[30%] h-[50%] max-sm:w-full max-sm:h-[70%] p-6 shad relative'>
+        <h1 className=' text-3xl font-semibold max-sm:text-2xl'>Set new password</h1>
         <form className=' flex flex-col mt-4 gap-5' onSubmit={(e) =>{
           handleSubmit(e)
         }}>

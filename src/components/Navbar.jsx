@@ -12,17 +12,17 @@ export default function Navbar () {
   })
 
   return (
-    <div className=' bg-inherit col-span-full flex justify-between items-center'>
-      <h1 className=' text-4xl font-semibold'>Chat</h1>
+    <div className=' bg-inherit col-span-full flex justify-between max-sm:justify-end items-center'>
+      <h1 className=' text-4xl font-semibold max-sm:hidden'>Chat</h1>
       <div className=' flex gap-4 items-center'>
         <div
-          className=' flex gap-1 items-center bg-[#2F83E4] py-1 px-9 rounded-lg justify-center text-black cursor-pointer'
+          className=' flex max-sm:p-0 max-sm:bg-transparent gap-1 items-center bg-[#2F83E4] py-1 px-9 rounded-lg justify-center text-black cursor-pointer'
           onClick={() => {
             setOpenModal(true)
           }}
         >
-          <IoMdAdd size={20} />
-          <span>Chat</span>
+          <IoMdAdd size={20} className=' max-sm:text-white' />
+          <span className=' max-sm:hidden'>Chat</span>
         </div>
         <IoMdNotificationsOutline size={30} />
         <div className=' flex items-center gap-3'>
@@ -38,7 +38,7 @@ export default function Navbar () {
         
         
           </div>{' '}
-          <span className=' font-semibold'>
+          <span className=' font-semibold max-sm:hidden'>
             {user?.firstName + ' ' + user?.lastName}
           </span>
         </div>

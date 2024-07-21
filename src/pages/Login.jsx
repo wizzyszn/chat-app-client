@@ -28,10 +28,10 @@ export default function Login () {
 
   return (
     <div className=' h-svh'>
-      <div className=' w-full h-full grid grid-cols-2'>
-        <div className=' bg-image'></div>
+      <div className=' w-full h-full grid grid-cols-2 max-sm:grid-cols-1'>
+        <div className=' bg-image max-sm:hidden'></div>
         <div className=' vectors'>
-          <form className='h-full p-[30%] pt-[15%] flex flex-col gap-6'
+          <form className='h-full p-[30%] pt-[20%] max-sm:p-[10%] flex flex-col gap-6'
           onSubmit={(e) =>{
             handleSubmit(e)
           }}

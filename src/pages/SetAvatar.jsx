@@ -6,10 +6,11 @@ import BlockWaves from '../components/svg/BlockWaves'
 import { baseUrl, postRequest } from '../utils/services';
 import { ref,  getDownloadURL , uploadBytesResumable} from 'firebase/storage'
 import storage from '../firebase';
+import { toast, ToastContainer } from 'react-toastify';
 export default function SetAvatar() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
-  const {user} = useContext(AuthContext);
+  const {user,setUser} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState(false);
   const [errorMessage,setErrorMessage] = useState(false);
   const [message,setMessage] = useState(false);
@@ -36,6 +37,9 @@ export default function SetAvatar() {
         throw new Error(response.message);
       }
       setMessage(response.message);
+      setUser(prevUser => {
+        return {...prevUser,isImageAvatarSet : response.isImageAvatarSet,avatar : response.avatar}
+      })
       setErrorMessage(null)
     }catch(err){
       setErrorMessage(err.message);
@@ -44,11 +48,10 @@ export default function SetAvatar() {
     }finally{
       setIsLoading(false);
     }
-  
    }
    const handleUpload = () => {
     if (!selectedImage || !user?.firstName) return;
-    setIsLoading(true); // Start loading before the upload begins
+    setIsLoading(true);// Start loading before the upload begins
     const storageRef = ref(storage, `${user?.firstName}/${imageFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
@@ -84,12 +87,12 @@ export default function SetAvatar() {
         errorMessage && ( <p className=' text-sm text-red-500 font-semibold'>{errorMessage}</p>)
       }
      
-      <div className='flex flex-col gap-4 shadow-md border w-[50%] h-[80%] p-3 shad relative'>
+      <div className='flex flex-col gap-4 shadow-md border w-[50%] max-sm:w-full h-[80%] max-sm:h-full p-3 shad relative'>
         <h1 className='text-4xl text-center'>Set Profile Picture</h1>
         <p className='text-center text-[#333333] font-medium'>{user.user?.firstName}</p>
         <p className='text-center text-sm'>Please set your profile picture</p>
         <div className='flex flex-col gap-4 items-center'>
-          <div className='relative w-60 h-60 rounded-full overflow-hidden border-2 border-black'>
+          <div className='relative size-60 max-sm:size-40 rounded-full overflow-hidden border-2 border-black'>
             {
               isLoading && <BlockWaves />
               }
@@ -134,16 +137,18 @@ export default function SetAvatar() {
         <button
         disabled= {isLoading}
           onClick={() => {
+            if(!selectedImage) return toast.error("Please select an Image to continue")
             handleUpload();
             setTimeout(() =>{
               navigate('/chat')
             }, 5000)
           }}
-          className={`bg-black text-white w-[20%] p-2 rounded-md absolute bottom-6 right-7 ${isLoading && " opacity-85 cursor-not-allowed"} `}
+          className={`bg-black text-white w-[20%] max-sm:w-fit p-2 rounded-md absolute bottom-6 right-7 ${isLoading && " opacity-85 cursor-not-allowed"} `}
         >
-          save & continue
+         continue
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

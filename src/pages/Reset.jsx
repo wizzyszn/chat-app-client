@@ -38,7 +38,7 @@ export default function Reset () {
           }{ 
             message && (<div className='text-sm 00 p-3 text-green-600 text-center'>{message}</div>)
 }
-      <div className=' flex flex-col gap-4 shadow-lg border w-[30%] h-[50%] p-6 relative'>
+      <div className=' flex flex-col gap-4 shadow-lg border w-[30%] max-sm:w-full max-sm:h-[70%] h-[50%] p-6 relative'>
         <h1 className=' text-2xl font-medium'>Forgot password</h1>
         <form className=' flex flex-col mt-4 gap-5' onSubmit={(e) =>{
           handleSubmit(e)
@@ -53,7 +53,7 @@ export default function Reset () {
             }}
           />
           <p className=' text-sm'>We’ll send a verification link to this email or phone number if it matches an existing account.</p>
-          <button className={`${isLoading ? " bg-[#4e4e4e] rounded-2xl text-white p-4  ": "bg-black rounded-2xl text-white p-4 "} relative`}>Next  {isLoading &&<Spinner />  }  </button>
+          <button className={`${isLoading ? " bg-[#4e4e4e] rounded-2xl text-white p-4 max-sm:p-2": "bg-black rounded-2xl text-white p-4 max-sm:p-2 "} relative`}>Next  {isLoading &&<Spinner />  }  </button>
           <button onClick={() =>{
             navigate('/login')
           }} className=' text-black text-sm font-medium hover:underline'>Return to sign in</button>

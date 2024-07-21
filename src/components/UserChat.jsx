@@ -49,7 +49,7 @@ function UserChat({chat,user}) {
 
     }}>
     <div className=' flex gap-5 w-full items-center'>
-      <div className=' size-14 relative rounded-full'>
+      <div className=' size-14 relative rounded-full max-sm:size-10'>
         <img
           className=' rounded-full w-full h-full object-cover border-[3px] border-[#2F83E4]'
           src={recipientUser?.isAvatarImageSet?recipientUser?.avatar : noImage}
@@ -61,7 +61,7 @@ function UserChat({chat,user}) {
         
       </div>{' '}
       <div className=''>
-      <h4 className=' text-[1rem] font-medium'>{recipientUser?.firstName +" "+ recipientUser?.lastName}</h4>
+      <h4 className=' text-[1rem] max-sm:text-sm font-medium'>{recipientUser?.firstName +" "+ recipientUser?.lastName}</h4>
       <span className=' text-[0.75rem] text-[#CBCBCB]'>{subString(lastMessage)}</span>
       </div>  
       {
